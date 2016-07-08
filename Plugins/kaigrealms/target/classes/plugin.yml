@@ -1,0 +1,21 @@
+name: kaigrealms
+description: Main plugin for the server!
+main: net.ddns.kaigrealms.main
+website: http://litichi.github.io/Kaigrealms/
+version: 1.0
+authors: [dragon, litichi]
+softdepend: [Bukkit(CraftBukkit)]
+commands:
+   basic:
+      description: This is a demo command.
+      usage: /basic
+      permission: kaigrealms.basic
+      permission-message: You don't have <permission>
+permissions:
+    kaigrealms.*:
+        description: Gives access to all kaigrealms commands
+        children:
+            kaigrealms.basic: true
+    kaigrealms.basic:
+        description: A demo command
+        default: true
