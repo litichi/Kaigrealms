@@ -1,0 +1,38 @@
+body{
+	margin:0%;
+	padding:0%;
+	overflow:none;
+}
+div.head{
+	height:4%;
+	width:100%;
+	background-color:#54d68b;
+	position:fixed;
+}
+div.main{
+	height:100%;
+	width:100%;
+	background-color:#4c4d00;
+	color:#99ffbb;
+}
+a.navbar{
+	font-size:18px;
+	color:#5e193b;
+	position:fixed;
+	top:.5%;
+}
+div.head a{
+	text-decoration:none;
+}
+#essays{
+	right:56%;
+}
+#drew{
+	right:51.25%;
+}
+#made{
+	right:43%;
+}
+#main{
+	left:2%;
+}
