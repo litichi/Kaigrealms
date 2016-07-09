@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><module codename="net.ddns.kaigrealms.app">
-    <module_version install_time="1468017290255" last="true" origin="installer" specification_version="1.0">
+    <module_version install_time="1468082211070" last="true" origin="installer" specification_version="1.0">
         <file crc="2130998655" name="config/Modules/net-ddns-kaigrealms-app.xml"/>
-        <file crc="2099478521" name="modules/net-ddns-kaigrealms-app.jar"/>
+        <file crc="18072489" name="modules/net-ddns-kaigrealms-app.jar"/>
     </module_version>
 </module>

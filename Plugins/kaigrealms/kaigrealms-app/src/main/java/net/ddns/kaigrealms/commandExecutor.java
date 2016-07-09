@@ -4,9 +4,10 @@
 
 package net.ddns.kaigrealms;
 
+import java.io.IOException;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.ddns.kaigrealms.commands.*;
-import static org.bukkit.Bukkit.getLogger;
 import org.bukkit.command.*;
 
 
@@ -21,13 +22,16 @@ public class commandExecutor implements CommandExecutor{
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String cmdLabel, String[] args) {
         
-        getLogger().log(Level.INFO, "{0}, {1}", new Object[]{cmd.getName(), cmdLabel});
+        plugin.getLogger().log(Level.INFO, "{0}, {1}", new Object[]{cmd.getName(), cmdLabel});
         
         switch(cmdLabel.toLowerCase()){
             
             case "home":
-                
-                new home(plugin).run(sender, args);
+                try {
+                    new home(plugin).run(sender, args);
+                } catch (IOException ex) {
+                    Logger.getLogger(commandExecutor.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 break;
             default:
                 break;

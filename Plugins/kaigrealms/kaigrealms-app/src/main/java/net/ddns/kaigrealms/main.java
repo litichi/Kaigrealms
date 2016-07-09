@@ -9,13 +9,15 @@ import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
-public final class main extends JavaPlugin{
+public class main extends JavaPlugin{
     
     public PluginDescriptionFile pdf = this.getDescription();
     public String[] commands = {"home"};
     
     @Override
     public void onEnable(){
+        
+        
         
         for (String command : commands){
            this.getCommand(command).setExecutor(new commandExecutor(this));
