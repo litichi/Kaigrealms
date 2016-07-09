@@ -1,0 +1,21 @@
+name: Kaigrealms
+main: net.ddns.kaigrealms.main
+version: 1.0.0
+description: The main command interface for kaigrealms
+authors: [Dragon, Litichi]
+website: http://litichi.github.io/Kaigrealms/
+commands:
+    home:
+        description: Teleport to your home
+        usage: /home [name]
+        permission: kaigrealms.home
+        permission-message: You do not have permission to /<permission>
+permissions:
+    kaigrealms.*:
+        description: Gives access to kaigrealms commands;
+        children:
+            kaigrealms.home: true
+    kaigrealms.home:
+        description: Allows you to teleport to your home
+        default: true
+        
