@@ -7,15 +7,23 @@ website: http://litichi.github.io/Kaigrealms/
 commands:
     home:
         description: Teleport to your home
-        usage: /home [name]
+        usage: /home [place]
         permission: kaigrealms.home
-        permission-message: You do not have permission to /<permission>
+        permission-message: You do not have permission to /<command>
+    warp:
+        description: Allows you to get from one place to the other
+        usage: /warp [place]
+        permission: kaigrealms.warp
+        permission-message: You do not have permission to /<command>
 permissions:
     kaigrealms.*:
         description: Gives access to kaigrealms commands;
         children:
             kaigrealms.home: true
+            kaigrealms.warp: true
     kaigrealms.home:
         description: Allows you to teleport to your home
         default: true
-        
+    kaigrealms.warp:
+        description: Allows you to warp to [place]
+        default: op

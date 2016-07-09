@@ -24,8 +24,6 @@ public class home {
         this.config = new config(plugin);
     }
     
-    // player.teleport(Location(world, x, y, z));
-    
     public void run(CommandSender sender, String[] args) throws IOException{
         
         if (sender instanceof Player){

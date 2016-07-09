@@ -3,7 +3,7 @@ OpenIDE-Module-Localizing-Bundle: net/ddns/kaigrealms/Bundle.propertie
  s
 OpenIDE-Module-Specification-Version: 1.0
 OpenIDE-Module-Implementation-Version: 1.0-20160709
-OpenIDE-Module-Build-Version: 201607091636
+OpenIDE-Module-Build-Version: 201607091909
 OpenIDE-Module: net.ddns.kaigrealms.app
 OpenIDE-Module-Public-Packages: -
 OpenIDE-Module-Requires: org.openide.modules.ModuleFormat1

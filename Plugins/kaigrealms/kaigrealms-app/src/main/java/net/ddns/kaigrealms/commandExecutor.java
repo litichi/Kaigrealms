@@ -33,6 +33,13 @@ public class commandExecutor implements CommandExecutor{
                     Logger.getLogger(commandExecutor.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 break;
+           case "warp":
+               try {
+                    new warp(plugin).run(sender, args);
+                } catch (IOException ex) {
+                    Logger.getLogger(commandExecutor.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
             default:
                 break;
             
