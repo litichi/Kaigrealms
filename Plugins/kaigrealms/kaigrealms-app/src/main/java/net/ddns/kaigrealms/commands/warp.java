@@ -5,9 +5,11 @@ package net.ddns.kaigrealms.commands;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Supplier;
 import net.ddns.kaigrealms.*;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
+import static org.bukkit.Bukkit.getLogger;
 import org.bukkit.command.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -32,56 +34,37 @@ public class warp {
 
             if (args.length == 0) {
                 player.sendMessage("/warp [place] -- to teleport to your [place].");
-                player.sendMessage("/warp set [place] -- to create a [place].");
                 player.sendMessage("/warp list -- to list your places.");
+                if (player.isOp()) {
+                    player.sendMessage("/warp set [place] -- to create a [place].");
+                    player.sendMessage("/warp remove [place] -- to remove a [place].");
+                }
                 return;
             }
 
             if (con != null) {
                 if (args[0] != null) {
-                    if (!"set".equals(args[0]) && !"list".equals(args[0])) {
-                        if (!args[0].isEmpty() || !args[0].trim().isEmpty()) {
-                            if (con.contains("warps." + args[0])) {
-                                String name = args[0];
-                                String worldName = con.getString("warps." + name + ".world");
-                                Integer x = con.getInt("warps." + name + ".x");
-                                Integer y = con.getInt("warps." + name + ".y");
-                                Integer z = con.getInt("warps." + name + ".z");
-                                World world = Bukkit.getWorld(worldName);
-                                if (world != null) {
-                                    Location location = new Location(world, x, y, z);
-                                    player.teleport(location);
-                                } else {
-                                    player.sendMessage(ChatColor.RED + (worldName + " does not exist!, if this is wrong please contact an admin."));
-                                }
-                            } else {
-                                player.sendMessage(ChatColor.RED + (args[0] + " does not exist!"));
-                            }
-                        }
-                    } else if ("set".equals(args[0])) {
-                        if (args[1] != null) {
-                            if (!args[1].isEmpty() || !args[1].trim().isEmpty()) {
-                                String name = args[1];
-                                con.set("warps." + name + ".world", player.getWorld().getName());
-                                con.set("warps." + name + ".x", player.getLocation().getX());
-                                con.set("warps." + name + ".y", player.getLocation().getY());
-                                con.set("warps." + name + ".z", player.getLocation().getZ());
-                                config.saveConfig("warps.yml");
-                            }
-                        }
-                    } else if ("list".equals(args[0])) {
-                        Set<String> list = con.getConfigurationSection("warps").getKeys(false);
-                        for (String name : list) {
-                            player.sendMessage(name);
-                        }
+                    switch (args[0]) {
+                        case "set":
+                            this.set(con, player, args);
+                            break;
+                        case "remove":
+                            this.remove(con, player, args);
+                            break;
+                        case "list":
+                            this.list(con, player);
+                            break;
+                        default:
+                            this.teleport(con, player, args);
+                            break;
                     }
+                } else {
+                    con.set("warps.spawn.world", worldName);
+                    con.set("warps.spawn.x", Bukkit.getWorld(worldName).getSpawnLocation().getX());
+                    con.set("warps.spawn.y", Bukkit.getWorld(worldName).getSpawnLocation().getY());
+                    con.set("warps.spawn.z", Bukkit.getWorld(worldName).getSpawnLocation().getZ());
+                    config.saveConfig("warps.yml");
                 }
-            } else {
-                con.set("warps.spawn.world", worldName);
-                con.set("warps.spawn.x", Bukkit.getWorld(worldName).getSpawnLocation().getX());
-                con.set("warps.spawn.y", Bukkit.getWorld(worldName).getSpawnLocation().getY());
-                con.set("warps.spawn.z", Bukkit.getWorld(worldName).getSpawnLocation().getZ());
-                config.saveConfig("warps.yml");
             }
 
         } else {
@@ -90,8 +73,68 @@ public class warp {
 
     }
 
-    public void createHome(String name) {
+    public void teleport(FileConfiguration con, Player player, String[] args) {
+        if (args.length > 0) {
+            if (con.contains("warps." + args[0])) {
+                String name = args[0];
+                String worldName = con.getString("warps." + name + ".world");
+                Integer x = con.getInt("warps." + name + ".x");
+                Integer y = con.getInt("warps." + name + ".y");
+                Integer z = con.getInt("warps." + name + ".z");
+                World world = Bukkit.getWorld(worldName);
+                if (world != null) {
+                    Location location = new Location(world, x, y, z);
+                    player.teleport(location);
+                } else {
+                    player.sendMessage(ChatColor.RED + (worldName + " does not exist!, if this is wrong please contact an admin."));
+                }
+            } else {
+                player.sendMessage(ChatColor.RED + (args[0] + " does not exist!"));
+            }
+        }
+    }
 
+    public void set(FileConfiguration con, Player player, String[] args) {
+        if (!player.isOp()) {
+            return;
+        }
+        if (args.length >= 2) {
+            String name = args[1];
+            con.set("warps." + name + ".world", player.getWorld().getName());
+            con.set("warps." + name + ".x", player.getLocation().getX());
+            con.set("warps." + name + ".y", player.getLocation().getY());
+            con.set("warps." + name + ".z", player.getLocation().getZ());
+            config.saveConfig("warps.yml");
+            player.sendMessage(name + " has been set!");
+        }
+    }
+
+    public void remove(FileConfiguration con, Player player, String[] args) {
+        try {
+            if (args.length >= 2) {
+                String name = args[1];
+                if (con.contains("warps." + name)) {
+                    con.set("warps." + name, null);
+                    con.set("warps." + name + ".world", null);
+                    con.set("warps." + name + ".x", null);
+                    con.set("warps." + name + ".y", null);
+                    con.set("warps." + name + ".z", null);
+                    config.saveConfig("warps.yml");
+                    player.sendMessage(name + " has been removed!");
+                } else {
+                    player.sendMessage("That warp does not exist!");
+                }
+            }
+        } catch (Exception e) {
+            getLogger().info((Supplier<String>) e);
+        }
+    }
+
+    public void list(FileConfiguration con, Player player) {
+        Set<String> list = con.getConfigurationSection("warps").getKeys(false);
+        for (String name : list) {
+            player.sendMessage(name);
+        }
     }
 
 }

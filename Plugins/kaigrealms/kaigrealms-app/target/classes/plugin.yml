@@ -26,4 +26,4 @@ permissions:
         default: true
     kaigrealms.warp:
         description: Allows you to warp to [place]
-        default: op
+        default: true
