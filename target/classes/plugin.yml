@@ -1,0 +1,60 @@
+name: Kaigrealms
+version: 0.0.1
+main: net.ddns.Kaigrealms.Kaigrealms
+commands:
+  spawn:
+    description: Teleports the player to spawn
+    usage: /spawn
+    permission: Kaigrealms.spawn
+    permission-message: You can't go to spawn
+  setspawn:
+    description: Sets the spawn of the current world
+    usage: /setspawn
+    permission: Kaigrealms.setspawn
+    permission-message: You can't set the world spawn
+  suicide:
+    description: Kills the player
+    usage: /suicide
+    permission: Kaigrealms.suicide
+    permission-message: You aren't allowed to kill yourself. Should be default, right?
+  tpt:
+    description: Sends a request to teleport to another player
+    usage: /tpt playername
+    permission: Kaigrealms.tp
+    permission-message: You aren't allowed to teleport
+  tph:
+    description: Sends a request to another player to teleport to the sender
+    usage: /tph playername
+    permission: Kaigrealms.tp
+    permission-message: You aren't allowed to teleport
+  tpyes:
+    description: Accepts a teleport request from a player
+    usage: /tpyes playername
+    permission: Kaigrealms.tp
+    permission-message: You aren't allowed to teleport
+  tpno:
+    description: Declines a teleport request from a player
+    usage: /tpno playername
+    permission: Kaigrealms.tp
+    permission-message: You aren't allowed to teleport
+  fly:
+    description: Toggles flight on or off, regardless of gamemode
+    usage: /fly
+    permission: Kaigrealms.fly
+    permission-message: You aren't allowed to fly
+permissions:
+  Kaigrealms.spawn:
+    description: Lets a player teleport to spawn
+    default: true
+  Kaigrealms.setspawn:
+    description: Lets a player set the world spawn
+    default: op
+  Kaigrealms.suicide:
+    description: Lets a player kill themselves
+    default: true
+  Kaigrealms.tp:
+    description: Lets a player teleport
+    default: true
+  Kaigrealms.fly:
+    description: Lets a player fly
+    default: true
