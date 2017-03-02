@@ -1,6 +1,6 @@
 name: Kaigrealms
-version: 0.0.1
-main: net.ddns.Kaigrealms.Kaigrealms
+version: 0.2.7
+main: net.ddns.Kaigrealms.Kaig
 commands:
   spawn:
     description: Teleports the player to spawn
