@@ -1,2 +1,2 @@
 # Kaigrealms
-I dunno hi
+Minecraft Plugin for Kaigrealms, collab repo
